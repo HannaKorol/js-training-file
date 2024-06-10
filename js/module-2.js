@@ -403,6 +403,61 @@ const s = m++;
 console.log(m); // 6
 console.log(s); // 5
 
+//Префіксний декремент (--value) спочатку зменшує значення змінної, а потім використовує нове значення у виразі.
+let z = 5;
+const u = --z;
+console.log(z); // 4
+console.log(u); // 4
+
+//Постфіксний декремент (value--) спочатку використовує поточне значення змінної у виразі, а потім виконує зменшення значення.
+let w = 5;
+const q = w--;
+console.log(w); // 4
+console.log(q); // 5
+
+//*Оператор break
+//використовується в циклі для переривання його виконання. 
+for (let i = 0; i < 10; i+=1) {
+  console.log(i);
+
+  if (i === 5) {
+    console.log('Met the number 5, interrupt the execution of the cycle');
+    break;
+  }
+}
+console.log('Log after cycle');
+//У цьому прикладі цикл for мав би виконуватися, доки значення змінної i менше 10. Але в тілі циклу є умова if (i === 5), яка перевіряє, чи дорівнює значення i числу 5. 
+//Коли ця умова стає істинною, тіло if виконується і застосовується оператор break, і виконання циклу припиняється.
+//Таким чином, у консоль будуть виведені числа від 0 до 5 (включно), а цикл завершиться.
+
+//!Тобто оператор break не припиняє виконання функції, а тільки перериває цикл.
+//!Для того щоб переривати виконання одразу циклу і функції і повернути результат у зовнішній код, є оператор return.
+function findNumberFromFive(max, target) {
+	console.log("Log in the body of the function before the cycle");
+
+	for (let i = 5; i <= max; i += 1) {
+	    console.log("Current counter value i:", i);
+	
+	    if (i === target) {
+	      console.log(`Found the number $ {target}, we make a return, interrupting the loop and function`);
+				return i;
+	    }
+	  }
+
+  // Цей console.log не виконується
+  console.log("Log in body function after cycle");
+}
+
+const result = findNumber(10, 6);
+console.log("Log after exiting function");
+console.log(`Result of function execution ${result}`);
+
+
+
+
+
+
+
 
 
 
