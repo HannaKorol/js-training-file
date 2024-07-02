@@ -198,12 +198,11 @@ function createArrayOfNumbers(min, max) {
 
   //*Ітерація по масиву
   //Ітерація по масиву з використанням циклу for дозволяє перебрати елементи масиву і виконати певну дію для кожного елемента.
-  function calculateTotalPrice(order) {
+function calculateTotalPrice(order) {
     let sum = 0;
-      for (let i = 0; i < order.length; i++)
-      sum += order[i];
-     }
-     return sum; 
+    for (let i = 0; i < order.length; i++);
+    sum+=order[i];
+    return sum; 
     };
     console.log(calculateTotalPrice([12, 85, 37, 4])); // 138
     console.log(calculateTotalPrice([164, 48, 291])); // 503
