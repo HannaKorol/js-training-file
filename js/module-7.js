@@ -92,4 +92,4 @@ document.style.backgraund = // стилі задаються в Java Script як
 
 
 
-//*Події клавіатури - 
+//*Події клавіатури 
