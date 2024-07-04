@@ -402,3 +402,4 @@ console.log(otherProps); // {age: 32, email: "j.cob@mail.com"}
 
 //*Пропуск значень
 
+https://shron1.chtyvo.org.ua/Robert_Greene/48_zakoniv_vlady.pdf?
