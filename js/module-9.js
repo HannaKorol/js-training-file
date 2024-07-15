@@ -264,3 +264,55 @@ function add(a, b) {
   console.log(localStorage.getItem("calculator")); // отримання в JSON форматі
   
   console.log(JSON.parse(localStorage.getItem("calculator"))); //отримання в JS форматі
+
+
+  //----------------------------------------------------------------------------------------------------
+  // Практика 2 уроку 1 по модулю 9
+
+  const STORAGE_KEY = "feedback-form";
+  const form = document.querySelector(".feedback-form"); //отримаємо форму з html 
+
+  populateForm();
+
+form.addEventListener("submit", handleFormSubmit);
+form.addEventListener("input", handleFormInput); //вішаєсо обробник подій на input
+
+/*
+ * - Скасовуємо стандартну поведінку
+ * - Видаляємо повідомлення зі сховища
+ * - Очищуємо форму
+ */
+
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+  
+    localStorage.removeItem(STORAGE_KEY);
+  
+    event.currentTarget.reset();
+  }
+  
+  /*
+   * - Отримуємо значення поля - input
+   * - Зберігаємо його у сховище
+   */
+  
+  function handleFormInput(event) {
+    const value = event.target.value; // збереження данних яке було ведено в полі input
+    const key = event.target.name; // 
+  
+    let savedFeedbackData = {};
+  
+    try {
+      savedFeedbackData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+
+
+    /*
+  - Отримуємо значення зі сховища
+ - Якщо там щось було, оновлюємо DOM
+ */
