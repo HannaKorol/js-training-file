@@ -246,9 +246,6 @@ console.log(user.name); // "Henry Sibola"
 //----------------------------------------------------------
 
 
-
-
-
 //& 3. Доступні способи перебирання об’єкту
 
 //*Перебір об'єкта
@@ -316,5 +313,297 @@ const book = {
 
 Масив значень властивостей також можна перебрати циклом for...of, наприклад для отримання загальної суми числових значень.
 
+//--------------------------------------------------------
 
 
+//& 4. Масив однотипних об'єктів; Як працювати з ним?
+
+//*Масив об’єктів - використовується для опису групи сутностей так як Об'єкти дозволяють згрупувати описові характеристики сутності, наприклад, користувача, книги, автомобіля, шоколадного батончика тощо.
+Біблотека — це колекція книг, тобто масив об’єктів.
+
+const books = [
+    {
+      title: "The Last Kingdom",
+      author: "Bernard Cornwell",
+      rating: 8.38,
+    },
+    {
+      title: "Beside Still Waters",
+      author: "Robert Sheckley",
+      rating: 8.51,
+    },
+    {
+      title: "The Dream of a Ridiculous Man",
+      author: "Fyodor Dostoevsky",
+      rating: 7.75,
+    }
+  ];
+  
+//*Маніпуляція масивом однотипних об'єктів -ще означає, що всі об'єкти в масиві гарантовано матимуть однаковий набір властивостей, але з різними значеннями.
+-- Для перебору такого масиву використовується стандартний цикл for...of.
+---Значення властивостей кожного об'єкта можна отримати, використовуючи синтаксис «через крапку», оскільки в кожному об'єкті набір властивостей та їх імена будуть однакові, відрізнятимуться тільки значення.
+for (const book of books) {
+    console.log(book); // Об'єкт книги
+    console.log(book.title); // Назва
+    console.log(book.author); // Автор
+    console.log(book.rating); // Рейтинг
+  }
+
+
+//*Пошук об'єкта за значенням властивості
+Наприклад, потрібно знайти книгу за її автором. Для цього необхідно:
+1) перебрати масив у циклі;
+2) додати умову, виконання якої означатиме успішний результат пошуку.
+
+  const books = [
+    { title: "The Last Kingdom", author: "Bernard Cornwell" },
+    { title: "Beside Still Waters", author: "Robert Sheckley" },
+    { title: "The Dream of a Ridiculous Man", author: "Fyodor Dostoevsky" }
+  ];
+  
+  const authorToSearchFor = "Robert Sheckley";
+  for (const book of books) {
+      if(book.author === authorToSearchFor) {
+          console.log(book);
+          console.log(book.title)
+          console.log(book.rating)
+      }
+  }
+
+
+//*Колекція значень властивості
+Типова задача під час роботи з колекцією об'єктів — це отримання масиву всіх значень певної властивості об'єктів. 
+Наприклад, взяти з масиву об'єктів, які описують книги, усі назви або рейтинг.
+
+Для цього необхідно:
+1) Створити новий порожній масив для зберігання значень властивостей.
+2) Перебрати масив об'єктів у циклі.
+3)На кожній ітерації додати в новий масив значення необхідної властивості.
+
+Приклад 1. отримаємо список назв усіх книг у колекції books.
+const books = [
+    { title: "The Last Kingdom", author: "Bernard Cornwell", rating: 8.2 },
+    { title: "Beside Still Waters", author: "Robert Sheckley", rating: 9 },
+    { title: "The Dream of a Ridiculous Man", author: "Fyodor Dostoevsky", rating: 6.8 }
+  ];
+  const titles = [];
+  for (const book of books) {
+      titles.push(book.title)
+  }
+  console.log(titles); // ["The Last Kingdom", "Beside Still Waters", "The Dream of a Ridiculous Man"]
+
+
+
+Приклад 2. Дізнаємося середній рейтинг усієї нашої колекції. Для цього треба скласти всі рейтинги й розділити отримане значення на кількість книг.
+const books = [
+    { title: "The Last Kingdom", author: "Bernard Cornwell", rating: 8.2 },
+    { title: "Beside Still Waters", author: "Robert Sheckley", rating: 9 },
+    { title: "The Dream of a Ridiculous Man", author: "Fyodor Dostoevsky", rating: 6.8 }
+  ];
+  let totalRating = 0;
+  for (const book of books) {
+    totalRating += book.rating;
+  }
+  const averageRating = totalRating / books.length;
+  console.log(averageRating); // 8
+
+
+  //---------------------------------------------------------------
+
+//& 5. Як звертатися до властивості об'єкта в його методах (блок 4)?
+
+//*Методи об'єкта
+Об'єкти можуть зберігати не тільки дані, але й функції для роботи з цими даними. 
+Якщо значення властивості — це функція, така властивість називається методом об'єкта.
+const obj = {
+	method(value) {
+		console.log(`I'm a method with ${value}!`);
+	}
+};
+obj.method(5); // "I'm a method with 5!"
+obj.method(10); // "I'm a method with 10!"
+   - Метод — це звичайна функція, оголошена як властивість об'єкта (див. приклад вище), а не як окрема змінна (див. перший приклад у розділі).
+   - Для звернення до методу об'єкта використовується стандартний синтаксис із крапкою.
+
+Об'єкти, які пов'язують дані та методи для роботи з цими даними, можна назвати «моделями».
+
+   Створимо об’єкт bookShelf для колекції книг books і методів взаємодії з колекцією getBooks і addBook.
+   // ✅ Логічно й синтаксично згруповані сутності
+const bookShelf = {
+    books: ["The Last Kingdom", "Dream Guardian"],
+    // Це метод об'єкта
+    getBooks() {
+      return "Returning all books";
+    },
+    // Це метод об'єкта
+    addBook(bookName) {
+          return `Adding book ${bookName}`;
+    },
+  };
+  
+  // Виклики методів
+  bookShelf.getBooks(); // поверне "Returning all books"
+  bookShelf.addBook("New book 1"); // поверне "Adding book New book 1"
+  bookShelf.addBook("New book 2"); // поверне "Adding book New book 2"
+
+
+
+//*Доступ до властивостей об'єкта
+Для доступу до об'єкта в методі використовується не ім'я змінної цього об’єкта, наприклад bookShelf, а ключове слово this.
+Ключове слово this — це контекст виконання функції.
+const bookShelf = {
+    books: ["The Last Kingdom", "The Mist"],
+    getBooks() {
+      console.log(this);
+    },
+  };
+  
+  bookShelf.getBooks(); // {books: ["The Last Kingdom", "The Mist"], getBooks: f}
+//!Значенням this буде посилання на об'єкт перед «крапкою», тобто об'єкт, який викликав цей метод, у нашому випадку — це посилання на об'єкт bookShelf.
+
+
+
+
+//*Зміна за посиланням
+ми можемо змінювати масив за посиланням, звертаючись до властивості bookShelf.books, тому що це посилання на масив.
+const bookShelf = {
+    books: ["The Last Kingdom"],
+  };
+  
+  bookShelf.books.push("The Mist");
+  console.log(bookShelf.books); // ["The Last Kingdom", "The Mist"]
+
+  
+
+  //*Масив об’єктів
+  найчастіше будемо працювати з масивом об'єктів. Для цього зберігатимемо у властивості books не рядки, а об'єкти з назвою книги та рейтингом, а в майбутньому, можливо, й іншими характеристиками.
+  const bookShelf = {
+    books: [
+          { title: "The Last Kingdom", rating: 8 }, 
+          { title: "The Mist", rating: 6 }
+      ],
+      getBooks() {
+          return this.books;
+      }
+  };
+
+  Тепер метод getBooks повертатиме масив об'єктів. А метод addBook очікує в параметрі не рядок, а об'єкт книги і додає його в масив у властивості books.
+  const bookShelf = {
+    books: [
+          { title: "The Last Kingdom", rating: 8 }, 
+          { title: "The Mist", rating: 6 }
+      ],
+    getBooks() {
+      return this.books;
+    },
+    addBook(newBook) {
+      this.books.push(newBook);
+    }
+  };
+  
+  bookShelf.addBook({ title: "Dream Guardian", rating: 9 });
+
+  При переборі масиву у властивості books треба пам'ятати, що це масив об'єктів.
+
+  Наприклад, додамо метод getAverageRating(), який повертатиме середній рейтинг книг. Для цього:
+      Оголосимо новий метод getAvarageRating в об'єкті.
+      Оголосимо змінну totalRating для зберігання загального рейтингу.
+      Переберемо масив книг за посиланням this.books у циклі for...of.
+      На кожній ітерації додамо до загального рейтингу - рейтинг книги.
+      Після завершення циклу повернемо результат ділення загального рейтингу на кількість книг.  
+
+      const bookShelf = {
+        books: [
+          { title: "The Last Kingdom", rating: 8 },
+          { title: "The Mist", rating: 6 },
+        ],
+        getAvarageRating() {
+          let totalRating = 0;
+      
+          for (const book of this.books) {
+            totalRating += book.rating;
+          }
+      
+          return totalRating / this.books.length;
+        },
+      };
+      
+      bookShelf.getAvarageRating(); // 7
+
+      
+//*Зміна об'єкта в масиві
+Метод changeRating очікує на назву книги, якій необхідно змінити рейтинг, і нове значення рейтингу, яке потрібно підмінити в об'єкті. Процес зміни властивостей об’єкта в масиві починається з таких кроків:
+
+  -Перебір масиву об'єктів у циклі, наприклад for...of.
+  -Додавання перевірки збігу значення властивості об'єкта на поточній ітерації і заданого значення.
+
+  const bookShelf = {
+    books: [
+      { title: "The Last Kingdom", rating: 8 },
+      { title: "The Mist", rating: 6 },
+    ],
+      changeRating(bookName, newRating) {
+          for(const book of this.books) {
+              if(book.title === bookName) {
+                  // Знайшли необхідний об’єкт за назвою книги
+              }
+          }
+      }
+  };
+Після виклику методу changeRating властивість rating об'єкта з назвою, що збігається з bookName, буде оновлено на newRating.
+
+
+//---------------------------------------------------------------------------------
+
+//& 6. використовувати сучасний синтаксис spread і rest та розуміти його функціонал.
+
+//*Синтаксис spread і rest
+
+//*Залишкові параметри
+У прикладі нижче проблема в тому, що аргументів більше, ніж параметрів. І будуть використані лише перші два аргументи — за кількістю оголошених параметрів.
+function multiply(a, b) {
+	console.log(a, b)
+}
+
+multiply(1, 2); // 1 2
+multiply(1, 2, 3); // 1 2
+multiply(1, 2, 3, 4); // 1 2
+
+//^Ми вже вміємо розв'язувати такі завдання, використовуючи псевдомасив arguments, у який збираються всі передані аргументи.
+function multiply() {
+	console.log(arguments)
+}
+multiply(1, 2); // псевдомасив [1, 2]
+multiply(1, 2, 3); // псевдомасив [1, 2, 3]
+multiply(1, 2, 3, 4); // псевдомасив [1, 2, 3, 4]
+
+
+
+//^ (...rest) - це спеціальний синтаксис, який дозволяє зібрати групу незалежних елементів(аргументів) у масив.
+function multiply(...args) {
+    console.log(args);
+  }
+  multiply(1, 2); // [1, 2]
+  multiply(1, 2, 3); // [1, 2, 3]
+  multiply(1, 2, 3, 4); // [1, 2, 3, 4]
+*Вільні параметри можуть бути позначені через три крапки .... Буквально це означає: "збери параметри, що залишилися, і поклади їх у масив". Ім'я параметра може бути довільним. Найчастіше його називають args або rest.
+
+//*Збір частини аргументів
+//^Операція (...rest) також дозволяє зібрати в масив тільки ту частину аргументів, яка необхідна. Для цього потрібно оголосити параметри до «збирання».
+Можна покласти перші кілька параметрів у змінні, а решту — зібрати в масив.
+function multiply(first, second, ...args) {
+    console.log(first, second, args);
+  }
+  
+  multiply(1, 2); // 1 2
+  multiply(1, 2, 3); // 1 2 [3] 
+  multiply(1, 2, 3, 4); // 1 2 [3, 4]
+//!Операція rest збирає решту всіх аргументів, а тому повинна завжди бути останньою в підписі функції, інакше виникне помилка SyntaxError: Rest parameter must be last formal parameter.
+
+
+//*Входження параметрів
+ //^оператор розпилення ...spread - перетворює масив на список аргументів.
+ const temps = [14, -4, 25, 8, 11];
+console.log(...temps); // 14 -4 25 8 11  набір окремих чисел 
+// ✅ Передамо колекцію елементів у якості окремих аргументів
+console.log(Math.max(...temps)); // 25
